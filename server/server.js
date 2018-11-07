@@ -16,10 +16,9 @@ app.get('/usuario', function(req, res) {
 
 app.post('/usuario', function(req, res) {
 
-
     let body = req.body;
 
-    if (body.nombre === undefined) {
+    if (body.nombre === undefined || body.nombre === "") {
         res.status(400).json({
             ok: false,
             mensaje: 'El nombre es necesario'
@@ -27,10 +26,8 @@ app.post('/usuario', function(req, res) {
     } else {
         res.json({
             persona: body
-        })
+        });
     }
-
-
 })
 
 app.put('/usuario/:id', function(req, res) {
@@ -39,7 +36,7 @@ app.put('/usuario/:id', function(req, res) {
 
     res.json({
         id
-    })
+    });
 })
 
 app.delete('/usuario', function(req, res) {
@@ -47,5 +44,5 @@ app.delete('/usuario', function(req, res) {
 })
 
 app.listen(process.env.PORT, () => {
-    console.log('Escuchando puerto: ', 3000);
+    console.log('Escuchando puerto: ', process.env.PORT);
 })
