@@ -1,4 +1,4 @@
-## Aplicación del Clima - Curso Node
+## Aplicación RESTSERVER - Curso Node
 
 
 Recuerden ejecutar ```npm install``` para las librerías
