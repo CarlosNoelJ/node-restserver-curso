@@ -13,7 +13,7 @@ app.get('/user', function(req, res) {
 
     limitePage = Number(limitePage);
     
-    User.find({})
+    User.find({}, 'name email role state google img')
         .skip(from)
         .limit(limitePage)
         .exec( (err, users) => {
@@ -24,12 +24,15 @@ app.get('/user', function(req, res) {
                 });
             }
 
-            res.json({
-                ok:true,
-                users
+            User.count({}, (err, counting) => {
+                
+                res.json({
+                    ok:true,
+                    users,
+                    counted: counting
+                });
             });
-        })
-
+        });
 });
 
 app.post('/user', function(req, res) {
@@ -83,8 +86,39 @@ app.put('/user/:id', function(req, res) {
     })
 });
 
-app.delete('/user', function(req, res) {
-    res.json('delete Usuario')
+app.delete('/user/:id', function(req, res) {
+    
+    let id = req.params.id;
+
+    // User.findByIdAndRemove(id, (err, userDeleted) => {
+    
+    let changeEstate = {
+        state: false
+    };
+
+    User.findByIdAndUpdate(id, changeEstate, {new: true}, (err, userDeleted) => {
+        
+        if ( err ) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        };
+
+        if(!userDeleted){
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'User not Found'
+                }
+            });
+        }
+
+        res.json({
+            ok: true,
+            user: userDeleted
+        })
+    })   
 });
 
 
