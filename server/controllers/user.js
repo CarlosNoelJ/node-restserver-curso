@@ -24,7 +24,7 @@ app.get('/user', function(req, res) {
                 });
             }
 
-            User.count({}, (err, counting) => {
+            User.countDocuments({}, (err, counting) => {
                 
                 res.json({
                     ok:true,
