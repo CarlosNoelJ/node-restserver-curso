@@ -36,7 +36,7 @@ app.get('/user', verifyToken , (req, res) => {
         });
 });
 
-app.post('/user', function(req, res){
+app.post('/user', [verifyToken, verifyAdmin] , function(req, res){
 
     let body = req.body;
 
