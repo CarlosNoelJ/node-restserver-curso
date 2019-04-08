@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use( require('./controllers/user') );
+// Global path configuration
+app.use( require('./path/index') );
 
 mongoose.connect(process.env.URLDB, 
                  { useNewUrlParser: true, useCreateIndex: true},

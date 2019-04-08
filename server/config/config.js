@@ -13,6 +13,20 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 
 // ============================
+//  Expiration Token Date
+// ============================
+// 60 seconds
+// 60 minutes
+// 24 hours
+// 30 days
+process.env.EXPIRATION_TOKEN = 60 * 60 * 24 * 30;
+
+// ============================
+//  Authentication SEED
+// ============================
+process.env.SEED = process.env.SEED || 'secret-develop';
+
+// ============================
 //  Data Base
 // ============================
 let urlDB;
