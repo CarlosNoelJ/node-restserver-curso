@@ -14,8 +14,10 @@ let Category = require('../models/category');
 app.get('/category', (req, res) => {
 
     Category.find({})
-        .exec( (err, category) => {
-            if ( err ) {
+        .sort('description')
+        .populate('user', 'name email')
+        .exec((err, category) => {
+            if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
@@ -37,7 +39,7 @@ app.get('/category/:id', (req, res) => {
     let id = req.params.id;
 
     Category.findById(id, (err, categoryDB) => {
-        if ( err ) {
+        if (err) {
             return res.status(400).json({
                 ok: false,
                 err
@@ -63,8 +65,10 @@ app.post('/category', verifyToken, (req, res) => {
 
     let category = new Category({
         description: body.description,
-        //user: req.user._id
+        user: req.user._id
     });
+
+
 
     category.save((err, categoryDB) => {
 
@@ -107,7 +111,7 @@ app.put('/category/:id', [verifyToken, verifyAdmin], (req, res) => {
     Category.findByIdAndUpdate(id, desCategory, { new: true, runValidators: true }, (err, categoryDB) => {
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });

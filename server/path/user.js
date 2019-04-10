@@ -100,7 +100,7 @@ app.delete('/user/:id', [verifyToken, verifyAdmin] , (req, res) => {
     User.findByIdAndUpdate(id, changeEstate, {new: true}, (err, userDeleted) => {
         
         if ( err ) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });
