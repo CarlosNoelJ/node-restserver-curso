@@ -19,7 +19,7 @@ app.get('/product', verifyToken, (req, res) => {
 
     Product.find({ availability: true })
         .skip(from)
-        .limit(5)
+        .limit(8)
         .sort('category')
         .populate('user', 'name email')
         .populate('category', 'description')
